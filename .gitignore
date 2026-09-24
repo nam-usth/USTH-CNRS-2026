@@ -1,0 +1,11 @@
+# Chỉ deploy: index.html + assets/ (logo + ảnh hero)
+# File làm việc nội bộ: ảnh diễn giả chưa công bố, logo gốc, script tải ảnh
+_private/
+
+# Hệ điều hành / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp

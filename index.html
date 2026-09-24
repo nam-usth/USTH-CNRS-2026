@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VAST–CNRS Winter School 2026 · Tam Dao, Vietnam</title>
+<meta name="description" content="VAST–CNRS Winter School — Interdisciplinary Data Science: From Mathematics, Modeling to Computing. November 16–19, 2026, Tam Dao, Phu Tho, Vietnam.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TOKENS — đổi màu ở đây là đổi cả trang
+   ============================================================ */
+:root{
+  --ink:      #131b21;
+  --red:      #b42318;
+  --pine:     #26493f;
+  --pine-dk:  #1a332c;
+  --slate:    #33587f;
+  --brass:    #8a7024;
+  --mist:     #e6ebe8;
+  --mist-dk:  #cdd6d1;
+  --paper:    #f7f8f7;
+  --white:    #ffffff;
+  --muted:    #6f7d76;
+
+  --serif: "Spectral", Georgia, "Times New Roman", serif;
+  --sans:  "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --wrap: 1120px;
+  --gut: 24px;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; scroll-padding-top:96px; }
+
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:17px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{ color:var(--slate); text-decoration:none; border-bottom:1px solid rgba(51,88,127,.35); }
+a:hover{ border-bottom-color:var(--slate); }
+:focus-visible{ outline:3px solid var(--brass); outline-offset:3px; }
+
+/* Nhấn mạnh: <strong> = thông tin chính (đậm); .hl = cần chú ý / cần làm (đỏ đậm) */
+strong{ font-weight:600; color:var(--ink); }
+.hl{ color:var(--red); font-weight:600; }
+.band-ink strong{ color:inherit; }
+/* Icon lá thư (mailto) */
+.band-ink a.mail-icon, a.mail-icon{ display:inline-flex; align-items:center; justify-content:center; vertical-align:-3px;
+  width:26px; height:26px; margin:0 2px; border:0; border-radius:50%; color:#f0d27a; background:rgba(255,255,255,.08); }
+.band-ink a.mail-icon:hover, a.mail-icon:hover, a.mail-icon:focus-visible{ background:#f0d27a; color:var(--pine-dk); }
+h1,h2,h3,h4{ font-family:var(--serif); font-weight:600; line-height:1.2; margin:0; }
+p{ margin:0 0 1em; max-width:68ch; }
+
+.wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--gut); }
+
+/* ============================================================
+   LOGO RAIL
+   ============================================================ */
+.rail{ background:var(--white); border-bottom:1px solid var(--mist-dk); }
+.rail-inner{ display:flex; align-items:center; justify-content:center; gap:36px; flex-wrap:wrap; padding:18px var(--gut); }
+.rail .logo-slot{ display:none; } /* ô logo chưa có file: ẩn ở header, chỉ hiện ở dải partner */
+[hidden]{ display:none !important; }
+a.logo, a.logo:hover{ border-bottom:0; }
+.logo img{ height:76px; width:auto; display:block; mix-blend-mode:multiply; }
+.logo-slot{
+  height:76px; min-width:120px; display:flex; align-items:center; justify-content:center;
+  padding:0 14px; border:1px dashed var(--mist-dk); border-radius:3px;
+  font-size:12px; color:#8c9a93; background:#fbfcfb; white-space:nowrap;
+}
+.rail-note{ margin-left:auto; font-size:13px; color:var(--muted); }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{ position:sticky; top:0; z-index:50; background:var(--pine); }
+.nav-inner{ display:flex; align-items:center; gap:2px; flex-wrap:wrap; }
+.nav a{ color:#dbe7e1; border:0; font-size:16.5px; font-weight:500; padding:16px 14px; display:block; }
+.nav a:hover, .nav a:focus-visible{ color:var(--white); background:var(--pine-dk); }
+/* Mục đang xem (scrollspy) */
+.nav a.is-active{ color:var(--white); background:var(--pine-dk); box-shadow:inset 0 -3px 0 #e0bf62; }
+.nav .nav-mark{
+  font-family:var(--serif); color:var(--white); font-size:18.5px; font-weight:600;
+  padding:16px 16px 16px 0; margin-right:8px; border-right:1px solid rgba(255,255,255,.18);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative; overflow:hidden; color:var(--white);
+  background:linear-gradient(178deg,#2f5a4d 0%,#3d6a5b 42%,#7d9c90 78%,#c3d1c9 100%);
+  padding:74px 0 210px;
+}
+/* Ảnh nền hero: ưu tiên assets/hero-tamdao.jpg → link ngoài → hỏng cả hai
+   thì tự quay về nền gradient + dãy núi SVG bên dưới. */
+.hero-photo{
+  position:absolute; inset:0; z-index:0;
+  width:100%; height:100%; object-fit:cover; object-position:center 45%;
+  opacity:0; transition:opacity .5s ease;
+}
+.hero-scrim{
+  position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0;
+  transition:opacity .5s ease;
+  background:
+    linear-gradient(104deg, rgba(11,30,24,.90) 0%, rgba(11,30,24,.70) 48%, rgba(11,30,24,.40) 100%),
+    linear-gradient(to bottom, rgba(11,30,24,.30) 0%, rgba(11,30,24,0) 32%, rgba(11,30,24,.58) 100%);
+}
+.hero.has-photo .hero-photo,
+.hero.has-photo .hero-scrim{ opacity:1; }
+.hero.has-photo{ padding-bottom:104px; }
+.hero.has-photo .ridges{ display:none; }
+.hero.has-photo .fog{ opacity:.35; bottom:0; }
+
+.ridges{ position:absolute; left:0; right:0; bottom:0; width:100%; height:230px; display:block; }
+.fog{
+  position:absolute; left:-10%; right:-10%; bottom:52px; height:120px; pointer-events:none;
+  background:radial-gradient(60% 70% at 50% 50%, rgba(255,255,255,.6), rgba(255,255,255,0) 70%);
+  animation:drift 34s ease-in-out infinite alternate;
+}
+@keyframes drift{ from{ transform:translateX(-3%); } to{ transform:translateX(3%); } }
+
+.hero-inner{ position:relative; z-index:2; }
+.hero .host{ font-size:14.5px; color:#d5e4dc; margin-bottom:20px; }
+.hero h1{ font-size:clamp(2.1rem,4.4vw,3.3rem); letter-spacing:-.015em; max-width:17ch; text-wrap:balance; }
+.hero .sub{
+  font-family:var(--sans); font-style:normal; font-weight:400;
+  font-size:clamp(1.05rem,2vw,1.35rem); color:#e6f0ea; margin-top:14px; max-width:40ch;
+}
+.hero .theme{ margin:18px 0 0; max-width:none; }
+.hero .theme-name{
+  display:inline-flex; align-items:center; gap:12px;
+  font-family:var(--sans); font-weight:600; font-size:clamp(1.2rem,2.3vw,1.65rem);
+  letter-spacing:.01em; color:var(--white);
+  padding:6px 16px 6px 12px; border-left:4px solid #e0bf62; background:rgba(255,255,255,.1);
+}
+.theme-dot{ width:12px; height:12px; border-radius:50%; background:#e0bf62; flex:none;
+  box-shadow:0 0 0 4px rgba(224,191,98,.25); }
+.hero .theme .sub{ display:block; margin-top:10px; }
+.hero-venn{
+  position:absolute; right:var(--gut); top:50%; transform:translateY(-50%);
+  width:clamp(360px,36vw,520px); height:auto; pointer-events:none;
+}
+@media (max-width:1080px){ .hero-venn{ display:none; } }
+.when{ margin-top:32px; padding-top:22px; border-top:1px solid rgba(255,255,255,.3); display:inline-block; }
+.when b{ display:block; font-family:var(--sans); font-size:1.5rem; font-weight:600; }
+.when .hero-key{ display:inline; font-family:var(--sans); font-size:inherit; color:#f0d27a; font-weight:600; }
+.when span{ display:block; font-size:15px; color:#dbe8e2; margin-top:4px; }
+
+.cta{ margin-top:32px; display:flex; gap:12px; flex-wrap:wrap; }
+.btn{
+  display:inline-block; padding:12px 24px; border:0; border-radius:2px;
+  font-size:15px; font-weight:600; background:var(--white); color:var(--pine-dk);
+}
+.btn:hover{ background:#f0f5f2; }
+.btn-ghost{ background:transparent; color:var(--white); box-shadow:inset 0 0 0 1px rgba(255,255,255,.55); }
+.btn-ghost:hover{ background:rgba(255,255,255,.12); }
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.band{ padding:62px 0; border-bottom:1px solid var(--mist-dk); }
+.band-tint{ background:var(--mist); }
+/* Khi ẩn #plenary: đảo nền các khối sau để vẫn xen kẽ trắng / tint */
+#plenary[hidden] ~ #program{ background:transparent; }
+#plenary[hidden] ~ #speakers{ background:var(--mist); }
+#plenary[hidden] ~ #labs{ background:transparent; }
+.band-ink{ background:var(--pine-dk); color:#e4ece8; border-bottom:0; }
+.band-ink h2, .band-ink h3{ color:var(--white); }
+.band-ink a{ color:#a9cfc0; border-bottom-color:rgba(169,207,192,.4); }
+
+.band h2{ font-size:1.95rem; margin-bottom:8px; padding-bottom:10px; border-bottom:2px solid var(--pine); display:inline-block; }
+.band-ink h2{ border-bottom-color:#7fae9c; }
+.lede{ font-size:1.06rem; color:#3b4a43; margin-top:18px; }
+.band-ink .lede{ color:#c8d8d1; }
+
+.split{ display:grid; grid-template-columns:1.6fr 1fr; gap:48px; align-items:start; margin-top:24px; }
+
+.facts{ background:var(--white); border:1px solid var(--mist-dk); padding:22px 24px; }
+.facts dl{ margin:0; }
+.facts dt{ font-size:13px; color:var(--muted); margin-top:14px; }
+.facts dt:first-child{ margin-top:0; }
+.facts dd{ margin:2px 0 0; font-family:var(--sans); font-size:1rem; font-weight:500; }
+.facts dd.hl{ font-weight:600; }
+#venue .split{ align-items:stretch; }
+/* ---- Bản đồ chỉ đường (Venue) ---- */
+.route{ margin-top:24px; border:1px solid var(--mist-dk); background:var(--white); }
+.route-bar{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:10px 12px; border-bottom:1px solid var(--mist-dk); }
+.route-label{ font-size:14px; color:var(--muted); margin-right:4px; }
+.route-btn{ font:500 14.5px var(--sans); padding:7px 14px; border:1px solid var(--mist-dk); background:var(--paper);
+  color:var(--ink); border-radius:2px; cursor:pointer; }
+.route-btn[aria-pressed="true"]{ background:var(--pine); border-color:var(--pine); color:var(--white); }
+.route-open{ margin-left:auto; font-size:14.5px; }
+.route-map{ position:relative; height:280px; background:var(--mist); }
+.route-map iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+@media (max-width:620px){ .route-open{ margin-left:0; width:100%; } .route-map{ height:260px; } }
+
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+table{ width:100%; border-collapse:collapse; margin-top:22px; font-size:15.5px; background:var(--white); }
+caption{ text-align:left; font-size:14px; color:var(--muted); padding-bottom:8px; }
+th,td{ padding:11px 14px; text-align:left; border-bottom:1px solid var(--mist-dk); vertical-align:top; }
+thead th{ background:var(--pine); color:var(--white); font-weight:600; font-size:14px; border-bottom:0; }
+tbody tr:nth-child(even){ background:#fcfdfc; }
+td.time{ font-variant-numeric:tabular-nums; white-space:nowrap; width:92px; color:#4a5a53; }
+td.who{ width:31%; }
+.org{ display:block; font-size:13.5px; color:var(--muted); }
+.tbd{ color:#8a968f; font-style:italic; }
+
+tr.sess th{
+  background:#eef3f0; color:var(--pine); font-family:var(--sans); font-size:.98rem;
+  font-weight:600; padding:13px 14px; border-bottom:1px solid var(--mist-dk);
+  box-shadow:inset 3px 0 0 var(--pine);
+}
+tr.sess th small{ font-family:var(--sans); font-size:13px; font-weight:400; color:var(--muted); margin-left:8px; }
+tr.plenary td{ background:#fbf7e8; }
+tr.plenary td:first-child{ box-shadow:inset 3px 0 0 var(--brass); }
+tr.break td{ color:#75837c; font-style:italic; }
+
+.tag{
+  display:inline-block; font-size:11.5px; font-weight:600; border-radius:2px;
+  padding:1px 7px; margin-left:6px; vertical-align:1px; white-space:nowrap;
+  color:#2f6b4f; border:1px solid rgba(47,107,79,.4);
+}
+.tag-online{ color:var(--slate); border-color:rgba(51,88,127,.4); }
+.tag-key{ color:var(--brass); border-color:rgba(138,112,36,.45); }
+
+/* ============================================================
+   TOPICS
+   ============================================================ */
+.topics{ display:grid; grid-template-columns:repeat(2,1fr); gap:2px; margin-top:26px; background:var(--mist-dk); }
+.topic{ background:var(--paper); padding:20px 24px; display:flex; gap:16px; align-items:baseline; }
+.band-tint .topic{ background:var(--mist); }
+.topic .code{ font-family:var(--serif); font-size:1.4rem; color:var(--pine); line-height:1; }
+.topic h3{ font-size:1.1rem; margin-bottom:4px; }
+.topic p{ margin:0; font-size:14.5px; color:#4c5b54; }
+/* Số chủ đề lẻ: ô cuối kéo hết hàng, không để lộ nền lưới */
+.topic:last-child:nth-child(odd){ grid-column:1 / -1; }
+
+/* ============================================================
+   PLENARY CARDS
+   ============================================================ */
+.speakers{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:28px; }
+.speaker{ background:var(--white); border:1px solid var(--mist-dk); display:flex; flex-direction:column; }
+.portrait{
+  aspect-ratio:4/5; background:#e9eeeb; display:flex; align-items:center; justify-content:center;
+  color:#94a29b; font-size:13px; overflow:hidden;
+}
+.portrait img{ width:100%; height:100%; object-fit:cover; display:block; }
+.speaker-body{ padding:18px 20px 22px; }
+.speaker .slot{ font-size:13px; color:var(--muted); }
+.speaker h3{ font-size:1.22rem; margin-top:4px; }
+.speaker .affil{ font-size:14px; color:var(--muted); margin:2px 0 12px; }
+.speaker .talk{ font-family:var(--sans); font-style:italic; font-size:1rem; margin:0; color:#2c3a34; }
+
+/* ============================================================
+   LABS + COMMITTEE
+   ============================================================ */
+.cols2{ display:grid; grid-template-columns:repeat(2,1fr); gap:40px; margin-top:26px; }
+.cols3{ display:grid; grid-template-columns:repeat(3,1fr); gap:34px; margin-top:26px; }
+.cols2 h3, .cols3 h3{ font-size:1.08rem; padding-bottom:8px; border-bottom:1px solid var(--mist-dk); }
+.band-ink .cols2 h3, .band-ink .cols3 h3{ border-bottom-color:rgba(255,255,255,.22); }
+.cols2 ul, .cols3 ul{ list-style:none; margin:14px 0 0; padding:0; font-size:15.5px; }
+.cols2 li, .cols3 li{ margin-bottom:10px; }
+.cols2 .org, .cols3 .org{ font-size:13.5px; }
+.band-ink .org{ color:#8ea79d; }
+.role{ font-size:12px; color:var(--brass); margin-left:6px; }
+.band-ink .role{ color:#d8c489; }
+
+/* ============================================================
+   SPONSORS + FOOTER
+   ============================================================ */
+.sponsors{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:28px; align-items:center; margin-top:24px; }
+@media (max-width:1100px){ .sponsors{ justify-content:center; } } /* xuống dòng thì căn giữa */
+.sponsors .logo img{ height:84px; }
+.sponsors .logo-slot{ height:84px; min-width:140px; }
+
+footer{ background:var(--ink); color:#9fb0a8; padding:38px 0; font-size:14.5px; }
+footer a{ color:#c3d5cc; border-bottom-color:rgba(195,213,204,.35); }
+footer .wrap{ display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+
+/* ============================================================
+   TABS
+   ============================================================ */
+.tabs{ display:flex; gap:2px; margin-top:26px; flex-wrap:wrap; }
+.tab{
+  font-family:var(--sans); font-size:14.5px; font-weight:500; padding:11px 18px;
+  border:1px solid var(--mist-dk); border-bottom:0; background:#eef2ef; color:#4c5b54;
+  cursor:pointer; border-radius:2px 2px 0 0;
+}
+.tab[aria-selected="true"]{ background:var(--white); color:var(--pine); font-weight:600; box-shadow:inset 0 3px 0 var(--pine); }
+.tabpanel[hidden]{ display:none; }
+.tabpanel table{ margin-top:0; border:1px solid var(--mist-dk); }
+.day-note{ font-size:14.5px; color:var(--muted); margin:16px 0 0; }
+.day-head{ background:var(--white); border:1px solid var(--mist-dk); border-bottom:0; padding:18px 20px 4px; }
+.day-head h3{ font-size:1.25rem; }
+.day-head p{ font-size:14.5px; color:var(--muted); margin:4px 0 12px; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:900px){
+  .split{ grid-template-columns:1fr; gap:28px; }
+  .topics{ grid-template-columns:1fr; }
+  .speakers{ grid-template-columns:1fr; }
+  .cols2,.cols3{ grid-template-columns:1fr; gap:24px; }
+  .hero{ padding:52px 0 150px; }
+  .hero.has-photo{ padding-bottom:64px; }
+  .ridges{ height:160px; }
+  .rail-note{ display:none; }
+  td.who{ width:auto; }
+}
+@media (max-width:620px){
+  body{ font-size:16px; }
+  th,td{ padding:9px 10px; font-size:14.5px; }
+  td.time{ width:auto; }
+  .nav a{ padding:12px 10px; font-size:15px; }
+  /* mobile: ẩn ô logo trống, logo nhỏ lại cho vừa một hàng; menu vuốt ngang thay vì xuống dòng */
+  .rail .logo-slot{ display:none; }
+  .rail-inner{ gap:18px; padding:12px var(--gut); }
+  .rail .logo img{ height:56px; }
+  .nav-inner{ flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; }
+  .nav-inner::-webkit-scrollbar{ display:none; }
+  .nav a, .nav .nav-mark{ white-space:nowrap; flex:none; }
+  .nav .nav-mark{ font-size:16.5px; }
+  .tab{ padding:9px 13px; font-size:13.5px; }
+}
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  .fog{ animation:none; }
+  .hero-photo,.hero-scrim{ transition:none; }
+}
+@media print{
+  .nav,.cta,.fog,.hero-photo,.hero-scrim{ display:none; }
+  .hero{ background:none; color:#000; padding:16px 0; }
+  .tabpanel[hidden]{ display:block !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== LOGO RAIL =====================================================
+     Thứ tự ưu tiên: file trong assets/ → link trong data-fallback → khung nét đứt.
+     Nên tải logo về assets/ thay vì để chạy bằng link ngoài (xem README).
+     Thêm logo: copy nguyên khối <span class="logo">…</span>
+========================================================================== -->
+<div class="rail">
+  <div class="rail-inner">
+    <a class="logo" href="https://vast.gov.vn" data-name="VAST"><img src="assets/logo-vast.png" data-fallback="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiqiBPgMBcfAgvdp1sRQ3FaK_wYtJDiKf43gbS0I7wCQ&amp;s" alt="Vietnam Academy of Science and Technology"></a>
+    <a class="logo" href="https://usth.edu.vn" data-name="USTH"><img src="assets/logo-usth.png" data-fallback="https://usth.edu.vn/wp-content/uploads/2025/01/logo-usth-550x370-1-e1664870510485-555x370-1.png" alt="University of Science and Technology of Hanoi"></a>
+    <a class="logo" href="https://www.cnrs.fr" data-name="CNRS"><img src="assets/logo-cnrs.png" data-fallback="https://thumb.wikimedia.org/wikipedia/fr/thumb/7/72/Logo_Centre_national_de_la_recherche_scientifique_%282023-%29.svg/960px-Logo_Centre_national_de_la_recherche_scientifique_%282023-%29.svg.png" alt="Centre national de la recherche scientifique"></a>
+    <a class="logo" href="https://www.xlim.fr" data-name="XLIM"><img src="assets/logo-xlim.png" data-fallback="https://www.unilim.fr/wp-content/uploads/sites/8/2026/06/anniversaire-xlim-20-ans-recherche-universite-limoges-laboratoire-photonique-electronique-ondes-600x480.png" alt="XLIM"></a>
+    <a class="logo" href="https://www.toulouse-inp.fr" data-name="Toulouse INP"><img src="assets/logo-inp-toulouse.png" data-fallback="https://thumb.wikimedia.org/wikipedia/en/thumb/f/fa/National_Polytechnic_Institute_of_Toulouse_%28logo%29.svg/1280px-National_Polytechnic_Institute_of_Toulouse_%28logo%29.svg.png" alt="Toulouse INP"></a>
+    <a class="logo" href="https://irl-fvma.apps.math.cnrs.fr" data-name="IRL FVMA"><img src="assets/logo-fvma.png" data-fallback="https://irl-fvma.apps.math.cnrs.fr/wp-content/uploads/2023/06/image002-1024x415.png" alt="IRL FVMA"></a>
+  </div>
+</div>
+
+<!-- ========== NAV ========================================================= -->
+<nav class="nav" aria-label="Sections">
+  <div class="wrap nav-inner">
+    <span class="nav-mark">VAST–CNRS 2026</span>
+    <a href="#about">About</a>
+    <a href="#topics">Topics</a>
+    <a href="#plenary" hidden>Plenary talks</a> <!-- TẠM ẨN: bỏ "hidden" khi chốt 3 diễn giả plenary -->
+    <a href="#program">Program</a>
+    <a href="#speakers">Speakers</a>
+    <a href="#labs">Institutions</a>
+    <a href="#committee">Organization</a>
+    <a href="#venue">Venue</a>
+  </div>
+</nav>
+
+<!-- ========== HERO ======================================================== -->
+<header class="hero">
+  <img class="hero-photo" src="assets/hero-tamdao.jpg"
+       data-fallback="https://vietnamdiscovery.com/wp-content/uploads/2019/11/Tam-Dao-National-Park-Featured.jpg"
+       alt="" fetchpriority="high">
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="fog" aria-hidden="true"></div>
+  <svg class="ridges" viewBox="0 0 1440 230" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 96 L150 52 L268 104 L392 40 L520 118 L640 66 L760 128 L900 58 L1040 122 L1180 70 L1310 116 L1440 74 L1440 230 L0 230 Z" fill="#1d4034" opacity=".55"/>
+    <path d="M0 140 L120 108 L250 152 L380 96 L500 158 L628 118 L768 170 L900 116 L1030 164 L1170 122 L1300 162 L1440 126 L1440 230 L0 230 Z" fill="#25503f" opacity=".6"/>
+    <path d="M0 182 L140 158 L290 194 L430 150 L570 196 L720 162 L860 202 L1000 164 L1150 200 L1290 168 L1440 194 L1440 230 L0 230 Z" fill="#2f5f49" opacity=".75"/>
+    <rect x="0" y="150" width="1440" height="34" fill="#ffffff" opacity=".28"/>
+    <rect x="0" y="204" width="1440" height="26" fill="#3a6d54"/>
+  </svg>
+
+  <div class="wrap hero-inner">
+    <p class="host">Vietnam Academy of Science and Technology · Centre national de la recherche scientifique</p>
+    <h1>VAST–CNRS Winter School 2026</h1>
+    <p class="theme">
+      <span class="theme-name"><span class="theme-dot" aria-hidden="true"></span>Interdisciplinary Data Science</span>
+      <span class="sub">From Mathematics, Modeling to Computing</span>
+    </p>
+
+    <!-- Biểu tượng chủ đề: giao của 3 lĩnh vực = Data Science -->
+    <svg class="hero-venn" viewBox="0 0 360 340" role="img"
+         aria-label="Data Science at the intersection of Mathematics, Modeling and Computing">
+      <defs>
+        <clipPath id="vA"><circle cx="180" cy="122" r="96"/></clipPath>
+        <clipPath id="vB"><circle cx="124" cy="218" r="96"/></clipPath>
+      </defs>
+      <g fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.7)" stroke-width="1.5">
+        <circle cx="180" cy="122" r="96"/>
+        <circle cx="124" cy="218" r="96"/>
+        <circle cx="236" cy="218" r="96"/>
+      </g>
+      <g clip-path="url(#vA)"><g clip-path="url(#vB)">
+        <circle cx="236" cy="218" r="96" fill="#e0bf62"/>
+      </g></g>
+      <g font-family="IBM Plex Sans, sans-serif" font-size="15" font-weight="500" fill="#eef4f0" text-anchor="middle">
+        <text x="180" y="78">Mathematics</text>
+        <text x="92" y="262">Modeling</text>
+        <text x="268" y="262">Computing</text>
+      </g>
+      <g font-family="IBM Plex Sans, sans-serif" font-size="12.5" font-weight="600" fill="#1a332c" text-anchor="middle">
+        <text x="180" y="180">Data</text>
+        <text x="180" y="195">Science</text>
+      </g>
+    </svg>
+
+    <div class="when">
+      <b>November 16–19, 2026</b>
+      <span>Tam Dao, Phu Tho, Vietnam · <b class="hero-key">arrival Sunday, November 15</b></span>
+    </div>
+
+    <div class="cta">
+      <a class="btn" href="#program">See the program</a>
+      <a class="btn btn-ghost" href="#venue">Getting there</a>
+    </div>
+  </div>
+</header>
+
+<!-- ========== ABOUT ======================================================= -->
+<section class="band" id="about">
+  <div class="wrap">
+    <h2>About the school</h2>
+    <div class="split">
+      <div>
+        <p class="lede">The school brings together leading researchers in <strong>mathematics, modeling and computer science</strong> from <strong>Vietnam and France</strong>, under the collaboration between VAST and CNRS.</p>
+        <p>It gives senior researchers, young researchers, <strong>PhD candidates and master's students</strong> from both countries a place to deepen their knowledge, present current work, build professional networks and shape joint projects for the years ahead.</p>
+        <p><strong>Four days</strong> are structured by research area: sessions on the principles of mathematics and modeling first, then advanced topics in computing, with <strong>flash communications and poster sessions</strong> at the end of each of the first two full days. An <strong>optional two-day tour of Ha Long Bay</strong> follows the closing session.</p>
+        <p class="hl">Working language is English.</p>
+      </div>
+      <aside class="facts">
+        <dl>
+          <dt>Dates</dt>
+          <dd class="hl">November 16–19, 2026</dd>
+          <dt>Place</dt>
+          <dd>Tam Dao, Phu Tho, Vietnam</dd>
+          <dt>Speakers</dt>
+          <dd>32 — 13 from France, 19 from Vietnam</dd>
+          <dt>Participants</dt>
+          <dd><strong>50</strong> young researchers, PhD and master's students — 10 from France, 40 from Vietnam</dd>
+          <dt>Format</dt>
+          <dd>Single track, plus flash communications and posters</dd>
+          <dt>Contact</dt>
+          <dd>Dr. Nguyễn Minh Hương, secretary<br><a href="mailto:nguyen.minh-huong@usth.edu.vn">nguyen.minh-huong@usth.edu.vn</a></dd>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TOPICS ====================================================== -->
+<section class="band band-tint" id="topics">
+  <div class="wrap">
+    <h2>Topics</h2>
+    <p class="lede">The program is built around <strong>seven themes</strong>. The list is not exhaustive — <strong>related work is welcome</strong> in the flash communication and poster sessions.</p>
+    <div class="topics">
+      <article class="topic">
+        <span class="code">A</span>
+        <div>
+          <h3>Interdisciplinary research and challenges</h3>
+          <p>Where mathematics, modeling and computing meet, and what breaks at the seams.</p>
+        </div>
+      </article>
+      <article class="topic">
+        <span class="code">B</span>
+        <div>
+          <h3>Mathematical foundations of data science</h3>
+          <p>Belief functions, quantum and combinatorial optimization, probability, numerical analysis.</p>
+        </div>
+      </article>
+      <article class="topic">
+        <span class="code">C</span>
+        <div>
+          <h3>Complex system modeling</h3>
+          <p>Automata networks, random walks, discrete dynamical systems, agent-based simulation.</p>
+        </div>
+      </article>
+      <article class="topic">
+        <span class="code">D</span>
+        <div>
+          <h3>Distributed infrastructure and edge computing</h3>
+          <p>Cloud architectures, parallel computing and GPU acceleration, networks and security.</p>
+        </div>
+      </article>
+      <article class="topic">
+        <span class="code">E</span>
+        <div>
+          <h3>Machine learning and deep learning</h3>
+          <p>Neural networks, graph neural networks, optimization in learning, reinforcement and few-shot learning.</p>
+        </div>
+      </article>
+      <article class="topic">
+        <span class="code">F</span>
+        <div>
+          <h3>Applications of math and interdisciplinary data science</h3>
+          <p>Genomics and bioinformatics, imaging, big data, and work carried out with domain partners.</p>
+        </div>
+      </article>
+      <article class="topic">
+        <span class="code">G</span>
+        <div>
+          <h3>Flash communications and posters</h3>
+          <p>PhD students and young researchers present ongoing work in <span class="hl">180 seconds</span>, then discuss at the poster boards.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PLENARY ====================================================
+     Ảnh chân dung: assets/speaker-1.jpg … crop 4:5, tối thiểu 600×750.
+========================================================================== -->
+<!-- TẠM ẨN: bỏ thuộc tính "hidden" để hiện lại phần Plenary talks -->
+<section class="band" id="plenary" hidden>
+  <div class="wrap">
+    <h2>Plenary talks</h2>
+    <p class="lede">Three plenary talks open the school on Monday, November 16.</p>
+    <div class="speakers">
+      <article class="speaker">
+        <div class="portrait"><img src="assets/speaker-dayde.jpg" alt="" loading="lazy"></div>
+        <div class="speaker-body">
+          <p class="slot">Plenary 1 <span class="tag">confirmed</span></p>
+          <h3>Michel Daydé</h3>
+          <p class="affil">IRIT, Toulouse — CNRS</p>
+          <p class="talk">“From Calculus to Exascale and new computing paradigms”</p>
+        </div>
+      </article>
+      <article class="speaker">
+        <div class="portrait"><img src="assets/speaker-doan-thai-son.jpg" alt="" loading="lazy"></div>
+        <div class="speaker-body">
+          <p class="slot">Plenary 2</p>
+          <h3>Đoàn Thái Sơn</h3>
+          <p class="affil">Institute of Mathematics, VAST</p>
+          <p class="talk tbd">Title to be announced</p>
+        </div>
+      </article>
+      <article class="speaker">
+        <div class="portrait"><img src="assets/speaker-nguyen-truong-thang.jpg" alt="" loading="lazy"></div>
+        <div class="speaker-body">
+          <p class="slot">Plenary 3</p>
+          <h3>Nguyễn Trường Thắng</h3>
+          <p class="affil">Institute of Information Technology, VAST</p>
+          <p class="talk tbd">Title to be announced</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROGRAM =================================================== -->
+<section class="band band-tint" id="program">
+  <div class="wrap">
+    <h2>Program</h2>
+    <p class="lede"><span class="hl">Tentative schedule.</span> Talks marked as confirmed have a speaker and title agreed; the rest are being finalized.</p>
+
+    <div class="tabs" role="tablist" aria-label="Program by day">
+      <button class="tab" role="tab" id="tab-d1" aria-controls="d1" aria-selected="true">Sun, Nov 15</button>
+      <button class="tab" role="tab" id="tab-d2" aria-controls="d2" aria-selected="false" tabindex="-1">Mon, Nov 16</button>
+      <button class="tab" role="tab" id="tab-d3" aria-controls="d3" aria-selected="false" tabindex="-1">Tue, Nov 17</button>
+      <button class="tab" role="tab" id="tab-d4" aria-controls="d4" aria-selected="false" tabindex="-1">Wed, Nov 18</button>
+      <button class="tab" role="tab" id="tab-d5" aria-controls="d5" aria-selected="false" tabindex="-1">Thu, Nov 19</button>
+      <button class="tab" role="tab" id="tab-d6" aria-controls="d6" aria-selected="false" tabindex="-1">Optional tour</button>
+    </div>
+
+    <!-- Day 1 -->
+    <div class="tabpanel" id="d1" role="tabpanel" aria-labelledby="tab-d1">
+      <div class="day-head">
+        <h3>Day 1 — Sunday, November 15</h3>
+        <p><strong>Arrival and check-in at Tam Dao.</strong> No scientific program.</p>
+      </div>
+      <table>
+        <thead><tr><th scope="col">Time</th><th scope="col">Item</th><th scope="col">Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="time">Afternoon</td><td>Arrival, transfer from Hanoi and Noi Bai airport</td><td class="tbd">Shuttle times to be announced</td></tr>
+          <tr><td class="time">Evening</td><td>Check-in and informal welcome</td><td>Conference hotel</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="tabpanel" id="d2" role="tabpanel" aria-labelledby="tab-d2" hidden>
+      <div class="day-head">
+        <h3>Day 2 — Monday, November 16</h3>
+        <p>Opening, plenary talks, and interdisciplinary research.</p>
+      </div>
+      <table>
+        <thead><tr><th scope="col">Time</th><th scope="col">Talk</th><th scope="col">Speaker</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="time">9:00</td>
+            <td>Welcome ceremony<span class="org">MC: Dr. Trần Hoàng Tùng</span></td>
+            <td class="who">Prof. Trần Hồng Thái, President of VAST; representatives of CNRS and of the VAST Department of International Cooperation; Prof. Đinh Thị Mai Thanh and Prof. Daniel Hagimont, chairs</td>
+          </tr>
+          <tr><td class="time">9:25</td><td>Photographs</td><td class="who">—</td></tr>
+        </tbody>
+        <tbody>
+          <tr class="sess"><th colspan="3">Session A — General <small>2 chairs</small></th></tr>
+          <tr class="plenary">
+            <td class="time">9:30</td>
+            <td>From Calculus to Exascale and new computing paradigms <span class="tag tag-key">plenary 1</span></td>
+            <td class="who">Michel Daydé <span class="org">CNRS</span> <span class="tag">confirmed</span></td>
+          </tr>
+          <tr class="break"><td class="time">10:15</td><td>Coffee break</td><td class="who">—</td></tr>
+          <tr class="plenary">
+            <td class="time">10:30</td>
+            <td class="tbd">Title to be announced <span class="tag tag-key">plenary 2</span></td>
+            <td class="who">Đoàn Thái Sơn <span class="org">Institute of Mathematics, VAST</span></td>
+          </tr>
+          <tr class="plenary">
+            <td class="time">11:15</td>
+            <td class="tbd">Title to be announced <span class="tag tag-key">plenary 3</span></td>
+            <td class="who">Nguyễn Trường Thắng <span class="org">Institute of Information Technology, VAST</span></td>
+          </tr>
+          <tr class="break"><td class="time">12:00</td><td>End of session — lunch</td><td class="who">—</td></tr>
+        </tbody>
+        <tbody>
+          <tr class="sess"><th colspan="3">Session B — Interdisciplinary research and challenges <small>2 chairs</small></th></tr>
+          <tr>
+            <td class="time">13:30</td>
+            <td>Automata Networks at the Heart of Natural Computing</td>
+            <td class="who">Sylvain Sené <span class="org">Marseille</span> <span class="tag">confirmed</span></td>
+          </tr>
+          <tr>
+            <td class="time">14:00</td>
+            <td>Complex Systems and Random Walks</td>
+            <td class="who">Phan Thị Hà Dương <span class="org">IRL FVMA</span> <span class="tag">confirmed</span></td>
+          </tr>
+          <tr><td class="time">14:30</td><td class="tbd">Title to be announced</td><td class="who">Nguyễn Việt Anh <span class="org">IOIT</span></td></tr>
+          <tr class="break"><td class="time">15:00</td><td>Coffee break</td><td class="who">—</td></tr>
+          <tr><td class="time">15:15</td><td class="tbd">Title to be announced</td><td class="who">Nguyễn Đức Dũng <span class="org">IOIT</span></td></tr>
+          <tr><td class="time">15:45</td><td class="tbd">Title to be announced</td><td class="who">Đinh Nho Hào <span class="org">IOM</span> <span class="tag">confirmed</span></td></tr>
+          <tr><td class="time">16:15</td><td class="tbd">Title to be announced</td><td class="who">Trần Giang Sơn <span class="org">USTH</span></td></tr>
+        </tbody>
+        <tbody>
+          <tr class="sess"><th colspan="3">Flash communications and posters <small>2 chairs</small></th></tr>
+          <tr><td class="time">16:45</td><td>PhD students and young researchers present ongoing work in 180 seconds</td><td class="who">—</td></tr>
+          <tr class="break"><td class="time">19:00</td><td>Dinner</td><td class="who">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="tabpanel" id="d3" role="tabpanel" aria-labelledby="tab-d3" hidden>
+      <div class="day-head">
+        <h3>Day 3 — Tuesday, November 17</h3>
+        <p>From mathematics and modeling…</p>
+      </div>
+      <table>
+        <thead><tr><th scope="col">Time</th><th scope="col">Talk</th><th scope="col">Speaker</th></tr></thead>
+        <tbody>
+          <tr class="sess"><th colspan="3">Session C1 — Mathematical foundations of data science <small>2 chairs</small></th></tr>
+          <tr>
+            <td class="time">9:00</td>
+            <td>Belief function theory for defining models or combining it with AI</td>
+            <td class="who">Constance Thierry <span class="org">Rennes</span> <span class="tag">confirmed</span></td>
+          </tr>
+          <tr><td class="time">9:30</td><td class="tbd">Title to be announced</td><td class="who">Lê Hải Khôi <span class="org">USTH</span></td></tr>
+          <tr class="break"><td class="time">10:00</td><td>Coffee break</td><td class="who">—</td></tr>
+          <tr>
+            <td class="time">10:30</td>
+            <td>Quantum Approximate Optimization Algorithms for Combinatorial Optimization</td>
+            <td class="who">Nguyen Viet Hung <span class="org">Clermont</span> <span class="tag">confirmed</span></td>
+          </tr>
+          <tr><td class="time">11:00</td><td class="tbd">Title to be announced</td><td class="who">Cấn Văn Hảo <span class="org">IOM</span></td></tr>
+          <tr><td class="time">11:30</td><td class="tbd">Title to be announced</td><td class="who">Lê Xuân Thanh <span class="org">IOM</span></td></tr>
+          <tr class="break"><td class="time">12:00</td><td>End of session — lunch</td><td class="who">—</td></tr>
+        </tbody>
+        <tbody>
+          <tr class="sess"><th colspan="3">Session C2 — Complex system modeling <small>2 chairs</small></th></tr>
+          <tr><td class="time">13:30</td><td class="tbd">Title to be announced</td><td class="who tbd">Speaker to be announced</td></tr>
+          <tr>
+            <td class="time">14:00</td>
+            <td>Scheduling Single Round Robin Tournaments with Different Court Types</td>
+            <td class="who">Lê Xuân Thanh <span class="org">IOM</span> <span class="tag">confirmed</span></td>
+          </tr>
+          <tr><td class="time">14:30</td><td class="tbd">Title to be announced</td><td class="who">Nguyen-Huu Tri <span class="org">IRD</span></td></tr>
+          <tr class="break"><td class="time">15:00</td><td>Coffee break</td><td class="who">—</td></tr>
+          <tr><td class="time">15:15</td><td class="tbd">Title to be announced</td><td class="who">Giang Anh Tuấn <span class="org">USTH</span></td></tr>
+          <tr><td class="time">15:45</td><td class="tbd">Title to be announced</td><td class="who">Benoit Gaudou <span class="org">Toulouse</span> <span class="tag tag-online">online</span></td></tr>
+        </tbody>
+        <tbody>
+          <tr class="sess"><th colspan="3">Flash communications and posters <small>2 chairs</small></th></tr>
+          <tr><td class="time">16:15</td><td>PhD students and young researchers present ongoing work in 180 seconds</td><td class="who">—</td></tr>
+          <tr class="break"><td class="time">19:00</td><td>Dinner</td><td class="who">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Day 4 -->
+    <div class="tabpanel" id="d4" role="tabpanel" aria-labelledby="tab-d4" hidden>
+      <div class="day-head">
+        <h3>Day 4 — Wednesday, November 18</h3>
+        <p>…to advanced computing.</p>
+      </div>
+      <table>
+        <thead><tr><th scope="col">Time</th><th scope="col">Talk</th><th scope="col">Speaker</th></tr></thead>
+        <tbody>
+          <tr class="sess"><th colspan="3">Session D1 — Distributed infrastructure and edge computing <small>2 chairs</small></th></tr>
+          <tr><td class="time">9:00</td><td>Cloud Computing Architectures</td><td class="who">Alain Tchana <span class="org">Grenoble</span> <span class="tag">confirmed</span></td></tr>
+          <tr><td class="time">9:30</td><td class="tbd">Title to be announced</td><td class="who">Daniel Hagimont <span class="org">Toulouse</span></td></tr>
+          <tr class="break"><td class="time">10:00</td><td>Coffee break</td><td class="who">—</td></tr>
+          <tr><td class="time">10:30</td><td class="tbd">Title to be announced</td><td class="who">Phạm Thanh Giang <span class="org">IOIT</span></td></tr>
+          <tr><td class="time">11:00</td><td>Security and cryptography <span class="tbd">— title to be announced</span></td><td class="who">Nguyễn Minh Hương <span class="org">USTH</span></td></tr>
+          <tr><td class="time">11:30</td><td>Parallel Computing and GPU acceleration</td><td class="who">Lilian Aveneau <span class="org">Poitiers</span> <span class="tag">confirmed</span> <span class="tag tag-online">online</span></td></tr>
+          <tr class="break"><td class="time">12:00</td><td>End of session — lunch</td><td class="who">—</td></tr>
+        </tbody>
+        <tbody>
+          <tr class="sess"><th colspan="3">Session D2 — Machine learning and deep learning <small>2 chairs</small></th></tr>
+          <tr><td class="time">13:30</td><td>Neural Networks</td><td class="who">Sixin Zhang <span class="org">Toulouse</span> <span class="tag">confirmed</span></td></tr>
+          <tr><td class="time">14:00</td><td>Authoring tools (multimodal) coupled with AI agents</td><td class="who">Mohamed Ez-zaouia <span class="org">Rennes</span> <span class="tag">confirmed</span></td></tr>
+          <tr><td class="time">14:30</td><td>Optimization in machine learning <span class="tbd">— title to be announced</span></td><td class="who">Nguyen Kim Thang <span class="org">Grenoble</span></td></tr>
+          <tr class="break"><td class="time">15:00</td><td>Coffee break</td><td class="who">—</td></tr>
+          <tr>
+            <td class="time">15:15</td>
+            <td>Graph neural networks, multi-level domain decomposition, distributed AI training, AdaGrad for GNNs</td>
+            <td class="who">Julien Herrmann <span class="org">Toulouse</span> <span class="tag">confirmed</span></td>
+          </tr>
+          <tr><td class="time">15:45</td><td>Reinforcement learning <span class="tbd">— title to be announced</span></td><td class="who">Đoàn Nhật Quang <span class="org">USTH</span></td></tr>
+          <tr><td class="time">16:15</td><td>Few-shot learning <span class="tbd">— title to be announced</span></td><td class="who">Trần Hoàng Tùng <span class="org">USTH</span></td></tr>
+          <tr class="break"><td class="time">19:00</td><td>Gala dinner</td><td class="who">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Day 5 -->
+    <div class="tabpanel" id="d5" role="tabpanel" aria-labelledby="tab-d5" hidden>
+      <div class="day-head">
+        <h3>Day 5 — Thursday, November 19</h3>
+        <p>Applications, then departure.</p>
+      </div>
+      <table>
+        <thead><tr><th scope="col">Time</th><th scope="col">Talk</th><th scope="col">Speaker</th></tr></thead>
+        <tbody>
+          <tr class="sess"><th colspan="3">Session E — Applications of interdisciplinary data science <small>2 chairs</small></th></tr>
+          <tr><td class="time">9:00</td><td>Genomics and Bioinformatics</td><td class="who">Dominique Lavenier <span class="org">CNRS Rennes</span> <span class="tag">confirmed</span></td></tr>
+          <tr><td class="time">9:30</td><td>Bioinformatics <span class="tbd">— title to be announced</span></td><td class="who">Nguyễn Thị Phương Thảo <span class="org">IOIT</span></td></tr>
+          <tr class="break"><td class="time">10:00</td><td>Coffee break</td><td class="who">—</td></tr>
+          <tr><td class="time">10:30</td><td class="tbd">Title to be announced</td><td class="who">Pascal Bourdon <span class="org">Poitiers</span></td></tr>
+          <tr><td class="time">11:00</td><td class="tbd">Title to be announced</td><td class="who">Nguyễn Hoàng Hà <span class="org">USTH</span></td></tr>
+          <tr><td class="time">11:30</td><td class="tbd">Title to be announced</td><td class="who">Hoàng Đỗ Thanh Tùng <span class="org">IOIT</span></td></tr>
+          <tr class="break"><td class="time">12:00</td><td>End of session — lunch</td><td class="who">—</td></tr>
+          <tr><td class="time">15:00</td><td><strong>Departure</strong></td><td class="who">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Day 6 -->
+    <div class="tabpanel" id="d6" role="tabpanel" aria-labelledby="tab-d6" hidden>
+      <div class="day-head">
+        <h3>Optional — Ha Long Bay</h3>
+        <p>Two days and one night, for participants who want to stay on after the closing session.</p>
+      </div>
+      <table>
+        <thead><tr><th scope="col">Item</th><th scope="col">Details</th></tr></thead>
+        <tbody>
+          <tr><td>Duration</td><td>2 days, 1 night</td></tr>
+          <tr><td>Departure</td><td class="tbd">To be announced</td></tr>
+          <tr><td>Cost and booking</td><td class="tbd">To be announced</td></tr>
+        </tbody>
+      </table>
+      <p class="day-note">Participants should <span class="hl">indicate their interest when registering</span> so the organizers can size the booking.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SPEAKERS ==================================================== -->
+<section class="band" id="speakers">
+  <div class="wrap">
+    <h2>Speakers</h2>
+    <p class="lede"><strong>Thirty-two speakers</strong> in total: nineteen based in Vietnam and thirteen from French institutions. Two of the French speakers take part online.</p>
+
+    <h3 style="margin-top:34px; font-size:1.25rem">Based in Vietnam</h3>
+    <table>
+      <thead><tr><th scope="col">Name</th><th scope="col">Title</th><th scope="col">Institute</th><th scope="col">Specialty</th></tr></thead>
+      <tbody>
+        <tr><td>Trần Giang Sơn</td><td>Assoc. Prof.</td><td>USTH</td><td>Deep learning, computer vision</td></tr>
+        <tr><td>Trần Hoàng Tùng</td><td>Dr.</td><td>USTH</td><td>Deep learning, image processing</td></tr>
+        <tr><td>Lê Hải Khôi</td><td>Assoc. Prof.</td><td>USTH</td><td>Complex variable functions</td></tr>
+        <tr><td>Nguyễn Minh Hương</td><td>Dr.</td><td>USTH</td><td>Wireless networks</td></tr>
+        <tr><td>Nguyễn Hoàng Hà</td><td>Dr.</td><td>USTH</td><td>Computer graphics</td></tr>
+        <tr><td>Giang Anh Tuấn</td><td>Dr.</td><td>USTH</td><td>Wireless networks</td></tr>
+        <tr><td>Đoàn Nhật Quang</td><td>Dr.</td><td>USTH</td><td>Data mining</td></tr>
+        <tr><td>Đoàn Thái Sơn</td><td>Prof.</td><td>IOM</td><td>Numerical analysis</td></tr>
+        <tr><td>Đinh Nho Hào</td><td>Prof.</td><td>IOM / IRL FVMA</td><td>Numerical analysis</td></tr>
+        <tr><td>Lê Xuân Thanh</td><td>Dr.</td><td>IOM / IRL FVMA</td><td>Optimization</td></tr>
+        <tr><td>Phan Thị Hà Dương</td><td>Assoc. Prof.</td><td>IOM / IRL FVMA</td><td>Discrete dynamical systems</td></tr>
+        <tr><td>Cấn Văn Hảo</td><td>Assoc. Prof.</td><td>IOM / IRL FVMA</td><td>Probability and statistics</td></tr>
+        <tr><td>Nguyễn Trường Thắng</td><td>Assoc. Prof.</td><td>IOIT</td><td>Computer science</td></tr>
+        <tr><td>Nguyễn Đức Dũng</td><td>Assoc. Prof.</td><td>IOIT</td><td>Computer vision</td></tr>
+        <tr><td>Nguyễn Việt Anh</td><td>Assoc. Prof.</td><td>IOIT</td><td>Artificial intelligence</td></tr>
+        <tr><td>Phạm Thanh Giang</td><td>Assoc. Prof.</td><td>IOIT</td><td>Network security</td></tr>
+        <tr><td>Hoàng Đỗ Thanh Tùng</td><td>Dr.</td><td>IOIT</td><td>Big data</td></tr>
+        <tr><td>Nguyễn Thị Phương Thảo</td><td>Dr.</td><td>IOIT</td><td>Bioinformatics</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:40px; font-size:1.25rem">From French institutions</h3>
+    <table>
+      <thead><tr><th scope="col">Name</th><th scope="col">Position</th><th scope="col">Institution</th></tr></thead>
+      <tbody>
+        <tr><td>Daniel Hagimont</td><td>Prof.</td><td>Toulouse</td></tr>
+        <tr><td>Michel Daydé</td><td>Prof.</td><td>Toulouse</td></tr>
+        <tr><td>Sixin Zhang</td><td>Maître de conférences</td><td>Toulouse</td></tr>
+        <tr><td>Julien Herrmann</td><td>Chargé de recherche</td><td>Toulouse</td></tr>
+        <tr><td>Benoit Gaudou <span class="tag tag-online">online</span></td><td>Prof.</td><td>Toulouse</td></tr>
+        <tr><td>Alain Tchana</td><td>Prof.</td><td>Grenoble</td></tr>
+        <tr><td>Nguyen Kim Thang</td><td>Prof.</td><td>Grenoble</td></tr>
+        <tr><td>Dominique Lavenier</td><td>Prof.</td><td>Rennes</td></tr>
+        <tr><td>Mohamed Ez-zaouia</td><td>Maître de conférences</td><td>Rennes</td></tr>
+        <tr><td>Constance Thierry</td><td>Maître de conférences</td><td>Rennes</td></tr>
+        <tr><td>Nguyen Viet Hung</td><td>Prof.</td><td>Clermont</td></tr>
+        <tr><td>Pascal Bourdon</td><td>Maître de conférences</td><td>Poitiers</td></tr>
+        <tr><td>Lilian Aveneau <span class="tag tag-online">online</span></td><td>Prof.</td><td>Poitiers</td></tr>
+        <tr><td>Sylvain Sené</td><td>Prof.</td><td>Marseille — IRL FVMA</td></tr>
+      </tbody>
+    </table>
+    <p class="day-note">Ten PhD students and postdocs from Toulouse, Rennes, Poitiers and Clermont travel with the French delegation and take part in the flash communication and poster sessions.</p>
+  </div>
+</section>
+
+<!-- ========== LABS ======================================================== -->
+<section class="band band-tint" id="labs">
+  <div class="wrap">
+    <h2>Participating labs and institutions</h2>
+    <p class="lede">Each institution presents its teams and current projects during the school.</p>
+    <div class="cols2">
+      <div>
+        <h3>Vietnam — VAST</h3>
+        <ul>
+          <li>University of Science and Technology of Hanoi <span class="org">USTH</span></li>
+          <li>Institute of Mathematics <span class="org">IOM</span></li>
+          <li>Institute of Information Technology <span class="org">IOIT</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>France — CNRS</h3>
+        <ul>
+          <li>Institut de Recherche en Informatique de Toulouse <span class="org">IRIT</span></li>
+          <li>XLIM <span class="org">Poitiers / Limoges</span></li>
+          <li>Institut d'Informatique et de Mathématiques Appliquées de Grenoble <span class="org">IMAG</span></li>
+          <li>Institut de Recherche en Informatique et Systèmes Aléatoires <span class="org">IRISA</span></li>
+          <li>Laboratoire d'Informatique de l'Université du Mans <span class="org">LIUM</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== COMMITTEE =================================================== -->
+<section class="band band-ink" id="committee">
+  <div class="wrap">
+    <h2>Organization</h2>
+    <div class="cols3">
+      <div>
+        <h3>Chairs</h3>
+        <ul>
+          <li>Prof. Đinh Thị Mai Thanh <span class="role">chair</span> <span class="org">USTH</span></li>
+          <li>Prof. Daniel Hagimont <span class="role">co-chair</span> <span class="org">IRIT UMR 5505, INP Toulouse</span></li>
+          <li>Assoc. Prof. Trần Giang Sơn <span class="role">co-chair</span> <span class="org">USTH</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Members</h3>
+        <ul>
+          <li>Prof. Đoàn Thái Sơn <span class="org">IOM</span></li>
+          <li>Assoc. Prof. Nguyễn Trường Thắng <span class="org">IOIT</span></li>
+          <li>Assoc. Prof. Phan Thị Hà Dương <span class="org">VIASM, IOM, IRL FVMA</span></li>
+          <li>Prof. Marc Peigné <span class="org">Institut Denis Poisson UMR 7013, IRL FVMA</span></li>
+          <li>Prof. Lilian Aveneau <span class="org">XLIM UMR 7252, University of Poitiers</span></li>
+          <li>Dr. Trần Hoàng Tùng <span class="org">USTH</span></li>
+          <li>Dr. Nguyễn Minh Hương <a class="mail-icon" href="mailto:nguyen.minh-huong@usth.edu.vn" title="Email Dr. Nguyễn Minh Hương" aria-label="Email Dr. Nguyễn Minh Hương"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg></a> <span class="role">secretary</span> <span class="org">USTH</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Supporting team</h3>
+        <ul>
+          <li>Nguyễn Thị Hiền <span class="org">VAST</span></li>
+          <li>Đinh Thành Trung <span class="org">VAST</span></li>
+          <li>Đinh Đàm Khánh <span class="org">USTH</span></li>
+          <li>Phạm Thị Thùy Ngân <span class="org">USTH</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== VENUE ======================================================= -->
+<section class="band" id="venue">
+  <div class="wrap">
+    <h2>Venue and travel</h2>
+    <div class="split">
+      <div>
+        <p class="lede">Tam Dao sits at about 900 meters in the mountains northwest of Hanoi, in Phu Tho province — a hill station of pine slopes, stone steps and near-permanent cloud.</p>
+        <p>Mid-November is a good time to be there: cool, dry, and clear enough in the afternoons to see down over the delta. <span class="hl">Bring a jacket; evenings drop to around 15&nbsp;°C (59&nbsp;°F).</span></p>
+        <p>The drive from Noi Bai International Airport takes <strong>roughly ninety minutes</strong>, and <strong>about two hours</strong> from central Hanoi. <strong>A shuttle will run on November 15</strong> for arrivals and <strong>after the closing session on November 19</strong>; times will be circulated with the final program.</p>
+        <!-- Bản đồ chỉ đường. Khi chốt khách sạn: thay toạ độ 21.4575,105.6450 (thị trấn Tam Đảo)
+             bằng toạ độ khách sạn ở cả data-embed, data-link, src và href bên dưới. -->
+        <div class="route">
+          <div class="route-bar">
+            <span class="route-label">Directions to Tam Dao from</span>
+            <button type="button" class="route-btn" aria-pressed="true"
+                    data-embed="https://maps.google.com/maps?saddr=H%E1%BB%93%20Ho%C3%A0n%20Ki%E1%BA%BFm%2C%20H%C3%A0%20N%E1%BB%99i&amp;daddr=21.4575,105.6450&amp;hl=en&amp;output=embed" data-link="https://www.google.com/maps/dir/?api=1&amp;origin=H%E1%BB%93%20Ho%C3%A0n%20Ki%E1%BA%BFm%2C%20H%C3%A0%20N%E1%BB%99i&amp;destination=21.4575,105.6450&amp;travelmode=driving">Central Hanoi</button>
+            <button type="button" class="route-btn" aria-pressed="false"
+                    data-embed="https://maps.google.com/maps?saddr=S%C3%A2n%20bay%20Qu%E1%BB%91c%20t%E1%BA%BF%20N%E1%BB%99i%20B%C3%A0i&amp;daddr=21.4575,105.6450&amp;hl=en&amp;output=embed" data-link="https://www.google.com/maps/dir/?api=1&amp;origin=S%C3%A2n%20bay%20Qu%E1%BB%91c%20t%E1%BA%BF%20N%E1%BB%99i%20B%C3%A0i&amp;destination=21.4575,105.6450&amp;travelmode=driving">Noi Bai airport</button>
+            <a class="route-open" href="https://www.google.com/maps/dir/?api=1&amp;origin=H%E1%BB%93%20Ho%C3%A0n%20Ki%E1%BA%BFm%2C%20H%C3%A0%20N%E1%BB%99i&amp;destination=21.4575,105.6450&amp;travelmode=driving" target="_blank" rel="noopener">Open in Google Maps ↗</a>
+          </div>
+          <div class="route-map">
+            <iframe src="https://maps.google.com/maps?saddr=H%E1%BB%93%20Ho%C3%A0n%20Ki%E1%BA%BFm%2C%20H%C3%A0%20N%E1%BB%99i&amp;daddr=21.4575,105.6450&amp;hl=en&amp;output=embed" title="Driving directions from central Hanoi to Tam Dao"
+                    loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+      <aside class="facts">
+        <dl>
+          <dt>Venue</dt>
+          <dd class="tbd">Hotel to be confirmed</dd>
+          <dt>Town</dt>
+          <dd>Tam Dao, Phu Tho, Vietnam</dd>
+          <dt>From Noi Bai airport</dt>
+          <dd>About 90 minutes by road</dd>
+          <dt>From central Hanoi</dt>
+          <dd>About 2 hours by road</dd>
+          <dt>Accommodation</dt>
+          <dd class="tbd">Booking details to be announced</dd>
+        </dl>
+      </aside>
+    </div>
+
+    <h3 style="margin-top:44px; font-size:1.3rem">Organizers and partners</h3>
+    <div class="sponsors">
+      <span class="logo" data-name="VAST"><img src="assets/logo-vast.png" data-fallback="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiqiBPgMBcfAgvdp1sRQ3FaK_wYtJDiKf43gbS0I7wCQ&amp;s" alt="VAST"></span>
+      <span class="logo" data-name="USTH"><img src="assets/logo-usth.png" data-fallback="https://usth.edu.vn/wp-content/uploads/2025/01/logo-usth-550x370-1-e1664870510485-555x370-1.png" alt="USTH"></span>
+      <span class="logo" data-name="CNRS"><img src="assets/logo-cnrs.png" data-fallback="https://thumb.wikimedia.org/wikipedia/fr/thumb/7/72/Logo_Centre_national_de_la_recherche_scientifique_%282023-%29.svg/960px-Logo_Centre_national_de_la_recherche_scientifique_%282023-%29.svg.png" alt="CNRS"></span>
+      <span class="logo" data-name="XLIM"><img src="assets/logo-xlim.png" data-fallback="https://www.unilim.fr/wp-content/uploads/sites/8/2026/06/anniversaire-xlim-20-ans-recherche-universite-limoges-laboratoire-photonique-electronique-ondes-600x480.png" alt="XLIM"></span>
+      <span class="logo" data-name="Toulouse INP"><img src="assets/logo-inp-toulouse.png" data-fallback="https://thumb.wikimedia.org/wikipedia/en/thumb/f/fa/National_Polytechnic_Institute_of_Toulouse_%28logo%29.svg/1280px-National_Polytechnic_Institute_of_Toulouse_%28logo%29.svg.png" alt="Toulouse INP"></span>
+      <span class="logo" data-name="IRL FVMA"><img src="assets/logo-fvma.png" data-fallback="https://irl-fvma.apps.math.cnrs.fr/wp-content/uploads/2023/06/image002-1024x415.png" alt="IRL FVMA"></span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <strong>VAST–CNRS Winter School 2026</strong><br>
+      Interdisciplinary Data Science: From Mathematics, Modeling to Computing<br>
+      November 16–19, 2026 · Tam Dao, Phu Tho, Vietnam
+    </div>
+    <div>
+      Contact: Dr. Nguyễn Minh Hương, secretary<br>
+      <a href="mailto:nguyen.minh-huong@usth.edu.vn">nguyen.minh-huong@usth.edu.vn</a><br>
+      University of Science and Technology of Hanoi<br>
+      Vietnam Academy of Science and Technology
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---- Tabs chương trình: click + phím mũi tên ---- */
+(function(){
+  const tabs = Array.from(document.querySelectorAll('.tab'));
+  function select(tab){
+    tabs.forEach(t=>{
+      const on = t === tab;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+  tabs.forEach((tab,i)=>{
+    tab.addEventListener('click', ()=>select(tab));
+    tab.addEventListener('keydown', e=>{
+      if(e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length-1)) % tabs.length];
+      select(next); next.focus(); e.preventDefault();
+    });
+  });
+  select(tabs[0]);
+})();
+
+/* ---- Hero: tải được ảnh mới bật lớp phủ và tắt dãy núi SVG ---- */
+(function(){
+  const photo = document.querySelector('.hero-photo');
+  if(!photo) return;
+  const on = ()=> photo.closest('.hero').classList.add('has-photo');
+  if(photo.complete && photo.naturalWidth) on();
+  else photo.addEventListener('load', on);
+})();
+
+/* ---- Bản đồ: đổi điểm xuất phát ---- */
+(function(){
+  const btns = document.querySelectorAll('.route-btn');
+  const frame = document.querySelector('.route-map iframe');
+  const open = document.querySelector('.route-open');
+  btns.forEach(b=>b.addEventListener('click', ()=>{
+    btns.forEach(x=>x.setAttribute('aria-pressed', x===b ? 'true' : 'false'));
+    frame.src = b.dataset.embed;
+    frame.title = 'Driving directions from ' + b.textContent.trim().toLowerCase() + ' to Tam Dao';
+    open.href = b.dataset.link;
+  }));
+})();
+
+/* ---- Navbar: tô sáng mục đang hiển thị trên màn hình (scrollspy) ---- */
+(function(){
+  const nav = document.querySelector('.nav');
+  const bar = document.querySelector('.nav-inner');
+  const links = [...document.querySelectorAll('.nav a[href^="#"]')]
+    .filter(a => !a.hidden)
+    .map(a => ({ a, sec: document.querySelector(a.getAttribute('href')) }))
+    .filter(x => x.sec && !x.sec.hidden);
+  if(!links.length) return;
+  let current = null, ticking = false;
+
+  function update(){
+    ticking = false;
+    const line = nav.getBoundingClientRect().bottom + window.innerHeight * 0.25; // vạch mốc: dưới navbar 1/4 màn hình
+    let active = null;
+    for(const x of links){ if(x.sec.getBoundingClientRect().top <= line) active = x; }
+    // cuộn tới đáy trang thì chọn mục cuối
+    if(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) active = links[links.length-1];
+    // còn ở hero (chưa tới mục nào) thì active = null -> không tô mục nào
+    if(active === current) return;
+    if(current){ current.a.classList.remove('is-active'); current.a.removeAttribute('aria-current'); }
+    current = active;
+    if(current){
+      current.a.classList.add('is-active'); current.a.setAttribute('aria-current', 'true');
+      // mobile: menu vuốt ngang -> đưa mục đang xem vào tầm nhìn (không làm cuộn trang)
+      if(bar.scrollWidth > bar.clientWidth){
+        const l = current.a.offsetLeft - (bar.clientWidth - current.a.offsetWidth) / 2;
+        bar.scrollTo({ left: Math.max(0, l), behavior: 'smooth' });
+      }
+    }
+  }
+  const onScroll = () => { if(!ticking){ ticking = true; requestAnimationFrame(update); } };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+
+/* ---- Logo/ảnh chưa có file thì hiện khung nét đứt thay vì icon vỡ ---- */
+document.querySelectorAll('.logo img, .portrait img, .hero-photo').forEach(img=>{
+  const onFail = ()=>{
+    const host = img.parentElement;
+    // chưa có file trong assets/ thì thử link dự phòng một lần
+    if(img.dataset.fallback){
+      const url = img.dataset.fallback;
+      delete img.dataset.fallback;
+      img.src = url;
+      return;
+    }
+    // hero: bỏ ảnh đi, để lộ nền gradient + núi SVG
+    if(img.classList.contains('hero-photo')){ img.remove(); return; }
+    if(host.classList.contains('portrait')){
+      img.remove();
+      host.textContent = 'Photo to come';
+    }else{
+      const box = document.createElement('span');
+      box.className = 'logo-slot';
+      box.textContent = host.dataset.name || 'Logo';
+      img.replaceWith(box);
+    }
+  };
+  img.addEventListener('error', onFail);
+  // script nằm cuối <body>: ảnh có thể đã lỗi trước khi listener được gắn
+  if(img.complete && img.naturalWidth === 0) onFail();
+});
+</script>
+
+</body>
+</html>
