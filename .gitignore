@@ -1,4 +1,4 @@
-# Chỉ deploy: index.html + assets/ (logo + ảnh hero)
+# Chỉ deploy: *.html (index, speakers, committee, program, venue) + assets/
 # File làm việc nội bộ: ảnh diễn giả chưa công bố, logo gốc, script tải ảnh
 _private/
 
