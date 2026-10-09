@@ -37,6 +37,7 @@ Then open <http://localhost:8000>.
 ## Editing notes
 
 - **Navigation and footer** are repeated in each HTML page. Apply any change to all five pages.
+- **After editing `assets/style.css` or `assets/site.js`**, bump the `?v=` date in their links on all five pages. Otherwise browsers keep the cached copy for up to 10 minutes.
 - **Logos** are listed in the sidebar of `index.html`. To add one, place the file in `assets/` and copy an existing `<a class="logo">` block.
 - **Keynote portraits** are loaded from `assets/speaker-*.jpg` (4:5 ratio, at least 600×750 px). Until a file is present, a “Photo to come” placeholder is shown.
 - **Venue coordinates** in `venue.html` currently point to Tam Dao town. Replace them with the hotel's coordinates once it is confirmed.
