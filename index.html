@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261010">
+<link rel="stylesheet" href="assets/style.css?v=20261010b">
 </head>
 <body>
 
@@ -86,9 +86,33 @@
   </div>
 </header>
 
+<!-- ========== ORGANIZERS AND PARTNERS ====================================
+     Dòng 1: hai đơn vị chủ trì (VAST, CNRS). Dòng 2: các đơn vị tham gia.
+     Logo: ưu tiên src → link trong data-fallback → khung nét đứt.
+========================================================================== -->
+<section class="partners" aria-labelledby="partners-title">
+  <div class="wrap">
+    <h2 class="partners-title" id="partners-title">Organizers and partners</h2>
+    <div class="logo-rows">
+      <div class="logo-row logo-row-main">
+        <a class="logo" href="https://vast.gov.vn" data-name="VAST"><img src="assets/logo-vast.png" data-fallback="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiqiBPgMBcfAgvdp1sRQ3FaK_wYtJDiKf43gbS0I7wCQ&amp;s" alt="Vietnam Academy of Science and Technology"></a>
+        <a class="logo" href="https://www.cnrs.fr" data-name="CNRS"><img src="assets/logo-cnrs.png" data-fallback="https://thumb.wikimedia.org/wikipedia/fr/thumb/7/72/Logo_Centre_national_de_la_recherche_scientifique_%282023-%29.svg/960px-Logo_Centre_national_de_la_recherche_scientifique_%282023-%29.svg.png" alt="Centre national de la recherche scientifique"></a>
+      </div>
+      <div class="logo-row">
+        <a class="logo" href="https://usth.edu.vn" data-name="USTH"><img src="assets/logo-usth.png" data-fallback="https://usth.edu.vn/wp-content/uploads/2025/01/logo-usth-550x370-1-e1664870510485-555x370-1.png" alt="University of Science and Technology of Hanoi"></a>
+        <a class="logo logo-wide" href="https://math.ac.vn" data-name="IOM"><img src="https://usth.edu.vn/wp-content/uploads/2026/10/logo-vth-3.png" data-fallback="https://math.ac.vn/images/LOGO-VTH-3.png" alt="Institute of Mathematics, VAST"></a>
+        <a class="logo" href="https://ioit.ac.vn" data-name="IOIT"><img src="https://nbtex.ninhbinh.gov.vn/upload/files/member_logo/phong-khoa-hoc-du-lieu-va-ung-dung-vien-cong-nghe-thong-tin_1502783387.jpg" data-fallback="https://ioit.ac.vn/Themes/Shared/imgs/fe/logo.png" alt="Institute of Information Technology, VAST"></a>
+        <a class="logo" href="https://viasm.edu.vn" data-name="VIASM"><img src="assets/logo-viasm.png" alt="Vietnam Institute for Advanced Study in Mathematics"></a>
+        <a class="logo" href="https://irl-fvma.apps.math.cnrs.fr" data-name="IRL FVMA"><img src="assets/logo-fvma.png" data-fallback="https://irl-fvma.apps.math.cnrs.fr/wp-content/uploads/2023/06/image002-1024x415.png" alt="IRL FVMA"></a>
+        <a class="logo" href="https://www.xlim.fr" data-name="XLIM"><img src="assets/logo-xlim.png" data-fallback="https://www.unilim.fr/wp-content/uploads/sites/8/2026/06/anniversaire-xlim-20-ans-recherche-universite-limoges-laboratoire-photonique-electronique-ondes-600x480.png" alt="XLIM"></a>
+        <a class="logo" href="https://www.toulouse-inp.fr" data-name="Toulouse INP"><img src="assets/logo-inp-toulouse.png" data-fallback="https://thumb.wikimedia.org/wikipedia/en/thumb/f/fa/National_Polytechnic_Institute_of_Toulouse_%28logo%29.svg/1280px-National_Polytechnic_Institute_of_Toulouse_%28logo%29.svg.png" alt="Toulouse INP"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ========== ABOUT + SIDEBAR ============================================
-     Cột phải: thông tin nhanh + logo xếp thẳng một cột (kiểu vcris.org).
-     Logo: ưu tiên file trong assets/ → link trong data-fallback → khung nét đứt.
+     Cột phải: thông tin nhanh.
 ========================================================================== -->
 <section class="band" id="about">
   <div class="wrap split">
@@ -170,18 +194,6 @@
         </dl>
       </div>
 
-      <div class="logo-col">
-        <h3>Organizers and partners</h3>
-        <div class="logos">
-          <a class="logo" href="https://vast.gov.vn" data-name="VAST"><img src="assets/logo-vast.png" data-fallback="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiqiBPgMBcfAgvdp1sRQ3FaK_wYtJDiKf43gbS0I7wCQ&amp;s" alt="Vietnam Academy of Science and Technology"></a>
-          <a class="logo" href="https://usth.edu.vn" data-name="USTH"><img src="assets/logo-usth.png" data-fallback="https://usth.edu.vn/wp-content/uploads/2025/01/logo-usth-550x370-1-e1664870510485-555x370-1.png" alt="University of Science and Technology of Hanoi"></a>
-          <a class="logo" href="https://www.cnrs.fr" data-name="CNRS"><img src="assets/logo-cnrs.png" data-fallback="https://thumb.wikimedia.org/wikipedia/fr/thumb/7/72/Logo_Centre_national_de_la_recherche_scientifique_%282023-%29.svg/960px-Logo_Centre_national_de_la_recherche_scientifique_%282023-%29.svg.png" alt="Centre national de la recherche scientifique"></a>
-          <a class="logo" href="https://viasm.edu.vn" data-name="VIASM"><img src="assets/logo-viasm.png" alt="Vietnam Institute for Advanced Study in Mathematics"></a>
-          <a class="logo" href="https://www.xlim.fr" data-name="XLIM"><img src="assets/logo-xlim.png" data-fallback="https://www.unilim.fr/wp-content/uploads/sites/8/2026/06/anniversaire-xlim-20-ans-recherche-universite-limoges-laboratoire-photonique-electronique-ondes-600x480.png" alt="XLIM"></a>
-          <a class="logo" href="https://www.toulouse-inp.fr" data-name="Toulouse INP"><img src="assets/logo-inp-toulouse.png" data-fallback="https://thumb.wikimedia.org/wikipedia/en/thumb/f/fa/National_Polytechnic_Institute_of_Toulouse_%28logo%29.svg/1280px-National_Polytechnic_Institute_of_Toulouse_%28logo%29.svg.png" alt="Toulouse INP"></a>
-          <a class="logo" href="https://irl-fvma.apps.math.cnrs.fr" data-name="IRL FVMA"><img src="assets/logo-fvma.png" data-fallback="https://irl-fvma.apps.math.cnrs.fr/wp-content/uploads/2023/06/image002-1024x415.png" alt="IRL FVMA"></a>
-        </div>
-      </div>
     </aside>
   </div>
 </section>
@@ -195,6 +207,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=20261010"></script>
+<script src="assets/site.js?v=20261010b"></script>
 </body>
 </html>

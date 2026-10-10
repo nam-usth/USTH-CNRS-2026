@@ -170,16 +170,20 @@ p{ margin:0 0 1em; max-width:68ch; }
 .facts dd.hl{ font-weight:600; }
 
 /* ============================================================
-   SIDEBAR LOGO — xếp thẳng một cột (kiểu vcris.org)
-   Thêm logo: copy nguyên khối <a class="logo">…</a>
+   ORGANIZERS AND PARTNERS — dải logo 2 dòng ngay dưới hero
+   Thêm logo: copy nguyên khối <a class="logo">…</a> vào đúng dòng
    ============================================================ */
 .aside-stack{ display:flex; flex-direction:column; gap:28px; }
-.logo-col{ background:var(--white); border:1px solid var(--mist-dk); padding:22px 24px 26px; }
-.logo-col h3{ font-size:1.02rem; margin-bottom:18px; }
-.logo-col .logos{ display:flex; flex-direction:column; align-items:center; gap:26px; }
+.partners{ background:var(--white); padding:36px 0 40px; border-bottom:1px solid var(--mist-dk); }
+.partners-title{ text-align:center; font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 22px; }
+.logo-rows{ display:flex; flex-direction:column; align-items:center; gap:30px; }
+.logo-row{ display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:22px 30px; width:100%; }
+.logo-row-main{ gap:22px 72px; }
 a.logo, a.logo:hover{ border-bottom:0; }
-.logo{ display:flex; justify-content:center; width:100%; }
-.logo img{ max-width:190px; max-height:84px; width:auto; height:auto; display:block; mix-blend-mode:multiply; }
+.logo{ display:flex; align-items:center; justify-content:center; }
+.logo img{ max-width:118px; max-height:52px; width:auto; height:auto; display:block; mix-blend-mode:multiply; }
+.logo-row-main .logo img{ max-width:240px; max-height:96px; }
+.logo-row .logo-wide img{ max-width:200px; }
 .logo-slot{
   height:72px; min-width:150px; display:flex; align-items:center; justify-content:center;
   padding:0 14px; border:1px dashed var(--mist-dk); border-radius:3px;
@@ -316,10 +320,10 @@ footer .wrap{ display:flex; justify-content:space-between; gap:8px 24px; flex-wr
   .hero.has-photo{ padding-bottom:64px; }
   .ridges{ height:160px; }
   td.who{ width:auto; }
-  /* sidebar xuống dưới: logo xếp thành lưới cho đỡ dài */
-  .logo-col .logos{ flex-direction:row; flex-wrap:wrap; justify-content:center; gap:22px 30px; }
-  .logo{ width:auto; }
-  .logo img{ max-width:150px; max-height:64px; }
+  .logo-row{ gap:18px 26px; }
+  .logo-row-main{ gap:18px 48px; }
+  .logo img{ max-height:44px; }
+  .logo-row-main .logo img{ max-width:180px; max-height:72px; }
 }
 @media (max-width:620px){
   body{ font-size:16px; }
