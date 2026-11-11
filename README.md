@@ -12,6 +12,7 @@ This GitHub Pages site only redirects there.
 | --- | --- |
 | `index.html` | Redirects the site root to the USTH page |
 | `program.html` | Redirects the old program link to the USTH page |
+| `assets/` | Copy of `legacy/assets/` kept at its old path, because the USTH page loads `assets/hero-tamdao.jpg` from this site as its header background. Do not move or rename it. |
 | `legacy/` | The original static site (five HTML pages and `assets/`), kept unchanged for reference |
 | `_private/` | Internal working files; ignored by Git and not deployed |
 
